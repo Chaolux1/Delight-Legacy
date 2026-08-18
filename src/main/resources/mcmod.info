@@ -1,0 +1,13 @@
+[
+  {
+    "modid": "delightlegacy",
+    "name": "Delight Legacy",
+    "version": "${modVersion}",
+    "mcversion": "1.7.10",
+    "description": "An unofficial backport.",
+    "url": "",
+    "credits": "Inspired by Farmer's Delight by vectorwing",
+    "authorList": ["Chaolux"],
+    "dependencies": []
+  }
+]
