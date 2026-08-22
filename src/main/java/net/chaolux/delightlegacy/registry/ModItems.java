@@ -7,7 +7,7 @@ public class ModItems {
     public static Item TEST;
 
     public static void register() {
-        TEST=new Item().setUnlocalizedName("delightlegacy.test").setTextureName("minecraft:wheat").setCreativeTab(ModCreativeTabs.DELIGHT_LEGACY);
+        TEST=new Item().setUnlocalizedName("delightlegacy.test").setCreativeTab(ModCreativeTabs.DELIGHT_LEGACY);
         GameRegistry.registerItem(TEST,"test");
     }
 }
