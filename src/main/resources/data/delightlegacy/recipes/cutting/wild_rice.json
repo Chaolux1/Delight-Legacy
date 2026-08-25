@@ -1,0 +1,26 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "farmersdelight:wild_rice"
+    }
+  ],
+  "result": [
+    {
+      "item": "farmersdelight:rice"
+    },
+    {
+      "chance": 0.5,
+      "item": "farmersdelight:straw"
+    }
+  ],
+  "tool": [
+    {
+      "type": "farmersdelight:tool_action",
+      "action": "knife_dig"
+    },
+    {
+      "tag": "forge:tools/knives"
+    }
+  ]
+}

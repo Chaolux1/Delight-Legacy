@@ -1,0 +1,27 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "farmersdelight:wild_potatoes"
+    }
+  ],
+  "result": [
+    {
+      "item": "minecraft:potato"
+    },
+    {
+      "chance": 0.5,
+      "count": 2,
+      "item": "minecraft:purple_dye"
+    }
+  ],
+  "tool": [
+    {
+      "type": "farmersdelight:tool_action",
+      "action": "knife_dig"
+    },
+    {
+      "tag": "forge:tools/knives"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "farmersdelight:sweet_berry_cheesecake"
+    }
+  ],
+  "result": [
+    {
+      "count": 4,
+      "item": "farmersdelight:sweet_berry_cheesecake_slice"
+    }
+  ],
+  "tool": [
+    {
+      "type": "farmersdelight:tool_action",
+      "action": "knife_dig"
+    },
+    {
+      "tag": "forge:tools/knives"
+    }
+  ]
+}

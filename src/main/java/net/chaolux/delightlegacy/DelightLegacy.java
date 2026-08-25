@@ -7,6 +7,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.chaolux.delightlegacy.common.CommonProxy;
 import net.chaolux.delightlegacy.legacy.assets.LegacyResources;
+import net.chaolux.delightlegacy.legacy.assets.lang.LegacyLanguageLoader;
 import net.chaolux.delightlegacy.legacy.data.recipe.LegacyRecipeManager;
 import net.chaolux.delightlegacy.registry.ModBlocks;
 import net.chaolux.delightlegacy.registry.ModItems;
@@ -19,6 +20,7 @@ import org.apache.logging.log4j.Logger;
 public class DelightLegacy {
 
     public static final String MOD_ID="delightlegacy";
+    public static final String MODERN_MOD_ID="farmersdelight";
     public static final String NAME="Delight Legacy";
     public static final Logger LOGGER = LogManager.getLogger(NAME);
 
@@ -28,6 +30,7 @@ public class DelightLegacy {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent fmlPreInitializationEvent) {
         LegacyResources.initialize(DelightLegacy.class);
+        LegacyLanguageLoader.reload();
         ModBlocks.register();
         ModItems.register();
         ModRecipeTypes.resister();

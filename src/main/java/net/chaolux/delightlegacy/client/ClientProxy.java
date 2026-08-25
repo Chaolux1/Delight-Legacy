@@ -8,11 +8,13 @@ import net.chaolux.delightlegacy.common.CommonProxy;
 import net.chaolux.delightlegacy.legacy.assets.ClassPathResourceProvider;
 import net.chaolux.delightlegacy.legacy.assets.LegacyPackType;
 import net.chaolux.delightlegacy.legacy.assets.LegacyResources;
+import net.chaolux.delightlegacy.legacy.assets.lang.LegacyLanguageReloadListener;
 import net.chaolux.delightlegacy.legacy.assets.models.LegacyModelManager;
 import net.chaolux.delightlegacy.legacy.assets.models.LegacyModelRegistry;
 import net.chaolux.delightlegacy.legacy.assets.textures.LegacyResourceProvider;
 import net.chaolux.delightlegacy.registry.ModClientModels;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResourceManager;
 
 public class ClientProxy extends CommonProxy {
@@ -20,6 +22,7 @@ public class ClientProxy extends CommonProxy {
     public void preInit(FMLPreInitializationEvent fmlPreInitializationEvent) {
         IResourceManager iResourceManager= Minecraft.getMinecraft().getResourceManager();
         LegacyResources.setProvider(LegacyPackType.ASSETS,new LegacyResourceProvider(iResourceManager,new ClassPathResourceProvider(DelightLegacy.class)));
+        if(iResourceManager instanceof IReloadableResourceManager) ((IReloadableResourceManager) iResourceManager).registerReloadListener(new LegacyLanguageReloadListener());
         LegacyModelRegistry.register();
         LegacyModelManager.getInstance().register(iResourceManager);
         ModClientModels.register();

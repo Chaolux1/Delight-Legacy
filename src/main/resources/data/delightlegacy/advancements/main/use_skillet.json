@@ -1,0 +1,37 @@
+{
+  "parent": "farmersdelight:main/place_campfire",
+  "criteria": {
+    "skillet": {
+      "conditions": {
+        "item": {
+          "items": [
+            "farmersdelight:skillet"
+          ]
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.farmersdelight.use_skillet.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "farmersdelight:skillet",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.farmersdelight.use_skillet.title"
+    }
+  },
+  "requirements": [
+    [
+      "skillet"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

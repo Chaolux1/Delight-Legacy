@@ -1,0 +1,26 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "farmersdelight:smoked_ham"
+    }
+  ],
+  "result": [
+    {
+      "count": 2,
+      "item": "minecraft:cooked_porkchop"
+    },
+    {
+      "item": "minecraft:bone"
+    }
+  ],
+  "tool": [
+    {
+      "type": "farmersdelight:tool_action",
+      "action": "knife_dig"
+    },
+    {
+      "tag": "forge:tools/knives"
+    }
+  ]
+}

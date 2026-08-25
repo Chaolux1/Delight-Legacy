@@ -34,6 +34,7 @@ public class ResourceLocations {
             namespace=string.substring(0,separator);
             path=string.substring(separator + 1);
         }
+        namespace=namespace(namespace);
         return locations(namespace,path);
     }
 
@@ -122,5 +123,10 @@ public class ResourceLocations {
 
     private static void getLocation(ResourceLocation resourceLocations) {
         if(resourceLocations == null) throw new IllegalArgumentException("Resource location cannot be null");
+    }
+
+    private static String namespace(String string) {
+        if(DelightLegacy.MODERN_MOD_ID.equals(string)) return DelightLegacy.MOD_ID;
+        return string;
     }
 }

@@ -1,0 +1,26 @@
+{
+  "format_version": "1.9.0",
+  "parent": "block/block",
+  "textures": {
+    "particle": "farmersdelight:block/tatami",
+    "inner": "farmersdelight:block/tatami",
+    "odd": "farmersdelight:block/tatami_odd",
+    "even": "farmersdelight:block/tatami_even",
+    "side": "farmersdelight:block/tatami_mat_side"
+  },
+  "elements": [
+    {
+      "name": "tatami_mat_foot",
+      "from": [0, 0, 0],
+      "to": [16, 2, 16],
+      "faces": {
+        "north": {"uv": [0, 14, 16, 16], "texture": "#side", "cullface": "north"},
+        "east": {"uv": [0, 14, 16, 16], "texture": "#side", "cullface": "east"},
+        "south": {"uv": [0, 7, 16, 9], "texture": "#inner", "cullface": "south"},
+        "west": {"uv": [0, 14, 16, 16], "texture": "#side", "cullface": "west"},
+        "up": {"uv": [0, 0, 16, 16], "texture": "#odd"},
+        "down": {"uv": [0, 0, 16, 16], "texture": "#even", "cullface": "down"}
+      }
+    }
+  ]
+}
