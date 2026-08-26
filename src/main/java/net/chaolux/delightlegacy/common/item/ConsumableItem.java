@@ -1,6 +1,9 @@
 package net.chaolux.delightlegacy.common.item;
 
+import net.chaolux.delightlegacy.DelightLegacy;
+import net.chaolux.delightlegacy.common.utility.TextUtils;
 import net.chaolux.delightlegacy.legacy.common.item.LegacyFoodProperties;
+import net.chaolux.delightlegacy.legacy.common.item.LegacyItem;
 import net.chaolux.delightlegacy.legacy.common.item.LegacyItemProperties;
 import net.chaolux.delightlegacy.legacy.registry.LegacyItemRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -11,8 +14,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-public class ConsumableItem extends Item {
-    private final LegacyFoodProperties legacyFoodProperties;
+import java.util.List;
+
+public class ConsumableItem extends LegacyItem {
     private final boolean hasFoodEffectTooltip;
     private final boolean hasCustomTooltip;
     public ConsumableItem(LegacyItemProperties legacyItemProperties) {
@@ -24,28 +28,17 @@ public class ConsumableItem extends Item {
     }
 
     public ConsumableItem(LegacyItemProperties legacyItemProperties,boolean hasFoodEffectTooltip,boolean hasCustomTooltip) {
-        if(legacyItemProperties == null) legacyItemProperties=new LegacyItemProperties();
-        this.legacyFoodProperties=legacyItemProperties.getFood();
+        super(legacyItemProperties);
         this.hasFoodEffectTooltip=hasFoodEffectTooltip;
         this.hasCustomTooltip=hasCustomTooltip;
-        legacyItemProperties.apply(this);
     }
 
-    public LegacyFoodProperties getLegacyFoodProperties() {
-        return legacyFoodProperties;
-    }
-
-    public boolean isHasFoodEffectTooltip() {
+    public boolean hasFoodEffectTooltip() {
         return hasFoodEffectTooltip;
     }
 
-    public boolean isHasCustomTooltip() {
+    public boolean hasCustomTooltip() {
         return hasCustomTooltip;
-    }
-
-    @Override
-    public int getMaxItemUseDuration(ItemStack itemStack) {
-        return legacyFoodProperties != null && legacyFoodProperties.isFast() ? 16 : 32;
     }
 
     @Override
@@ -54,37 +47,39 @@ public class ConsumableItem extends Item {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer) {
-        if(legacyFoodProperties != null && !entityPlayer.canEat(legacyFoodProperties.isAlwaysEat())) return itemStack;
-        entityPlayer.setItemInUse(itemStack,getMaxItemUseDuration(itemStack));
-        return itemStack;
-    }
-
-    @Override
     public ItemStack onEaten(ItemStack itemStack,World world,EntityPlayer entityPlayer) {
-        if(!world.isRemote) {
-            if(legacyFoodProperties != null) {
-                entityPlayer.getFoodStats().addStats(legacyFoodProperties.getNutrition(),legacyFoodProperties.getSaturationModifier());
-                for(LegacyFoodProperties.Effect effect : legacyFoodProperties.getEffectList()) {
-                    if(world.rand.nextFloat() <= effect.getValue()) {
-                        PotionEffect potionEffect=effect.potionEffect();
-                        if(potionEffect != null) entityPlayer.addPotionEffect(potionEffect);
-                    }
-                }
-            }
-            affectConsumer(itemStack,world,entityPlayer);
-        }
+        if(!world.isRemote) affectConsumer(itemStack,world,entityPlayer);
         Item item=hasContainerItem() ? getContainerItem() : null;
-        if(!entityPlayer.capabilities.isCreativeMode) itemStack.stackSize--;
-        if(itemStack.stackSize <= 0) return item == null ? itemStack : new ItemStack(item);
-        if(!world.isRemote && !entityPlayer.capabilities.isCreativeMode && item != null) {
-            ItemStack stack=new ItemStack(item);
-            if(!entityPlayer.inventory.addItemStackToInventory(stack)) entityPlayer.dropPlayerItemWithRandomChoice(stack,false);
+        if(isFood()) {
+            itemStack=super.onEaten(itemStack,world,entityPlayer);
+        } else if (!entityPlayer.capabilities.isCreativeMode) {
+            itemStack.stackSize--;
+        }
+        if(entityPlayer.capabilities.isCreativeMode || item == null) return itemStack;
+        if(itemStack.stackSize <= 0) return new ItemStack(item);
+        if(!world.isRemote) {
+            ItemStack containerStack=new ItemStack(item);
+            if(!entityPlayer.inventory.addItemStackToInventory(containerStack)) entityPlayer.dropPlayerItemWithRandomChoice(containerStack,false);
         }
         return itemStack;
     }
 
     public void affectConsumer(ItemStack itemStack, World world, EntityLivingBase entityLivingBase) {
 
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void addInformation(ItemStack itemStack, EntityPlayer entityPlayer, List list,boolean isAdvanced) {
+        if(hasCustomTooltip) list.add(TextUtils.tooltip(getTooltip(itemStack)));
+        if(hasFoodEffectTooltip) TextUtils.addFoodEffectTooltip(itemStack,list,1.0f);
+    }
+
+    private String getTooltip(ItemStack itemStack) {
+        String string=getUnlocalizedName(itemStack);
+        String prefix="item." + DelightLegacy.MOD_ID + ".";
+        if(string.startsWith(prefix)) return string.substring(prefix.length());
+        if(string.startsWith("item.")) return string.substring("item.".length());
+        return string;
     }
 }

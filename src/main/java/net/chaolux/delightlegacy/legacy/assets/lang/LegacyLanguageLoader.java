@@ -101,10 +101,14 @@ public class LegacyLanguageLoader {
         String mapper=LegacyLanguageMapper.namespace(string);
         String legacy=LegacyLanguageMapper.legacy(string);
         String mapperLegacy=LegacyLanguageMapper.legacy(mapper);
-        stringStringHashMap.put(string,value);
-        stringStringHashMap.put(mapper,value);
-        stringStringHashMap.put(legacy,value);
-        stringStringHashMap.put(mapperLegacy,value);
+        boolean legacyName=!legacy.equals(string) || !mapperLegacy.equals(mapper);
+        if(legacyName) {
+            stringStringHashMap.put(legacy, value);
+            stringStringHashMap.put(mapperLegacy, value);
+        } else {
+            stringStringHashMap.put(string, value);
+            stringStringHashMap.put(mapper, value);
+        }
     }
 
     private static void addLegacyAtlas(HashMap<String,String> stringStringHashMap,String string,String value) {

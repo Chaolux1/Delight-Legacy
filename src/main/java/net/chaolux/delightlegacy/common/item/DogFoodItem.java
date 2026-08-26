@@ -1,5 +1,6 @@
 package net.chaolux.delightlegacy.common.item;
 
+import net.chaolux.delightlegacy.common.utility.MathUtils;
 import net.chaolux.delightlegacy.legacy.common.item.LegacyItemProperties;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityWolf;
@@ -40,7 +41,10 @@ public class DogFoodItem extends ConsumableItem {
             }
             world.playSoundAtEntity(entityWolf,"random.eat",0.8f,0.8f);
             for (int index=0;index < 5;index++) {
-                world.spawnParticle("heart",entityWolf.posX + (world.rand.nextDouble() - 0.5) * entityWolf.width,entityWolf.posY + 0.5 + world.rand.nextDouble() * entityWolf.height,entityWolf.posZ + (world.rand.nextDouble() - 0.5) * entityWolf.width,0.0,0.05,0.0);
+                double xSpeed = MathUtils.RAND.nextGaussian() * 0.02;
+                double ySpeed = MathUtils.RAND.nextGaussian() * 0.02;
+                double zSpeed = MathUtils.RAND.nextGaussian() * 0.02;
+                world.spawnParticle("heart",entityWolf.posX + (world.rand.nextDouble() - 0.5) * entityWolf.width,entityWolf.posY + 0.5 + world.rand.nextDouble() * entityWolf.height,entityWolf.posZ + (world.rand.nextDouble() - 0.5) * entityWolf.width,xSpeed,ySpeed,zSpeed);
             }
             if(!entityPlayer.capabilities.isCreativeMode) itemStack.stackSize--;
         }

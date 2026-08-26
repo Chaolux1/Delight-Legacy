@@ -30,7 +30,6 @@ public class DelightLegacy {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent fmlPreInitializationEvent) {
         LegacyResources.initialize(DelightLegacy.class);
-        LegacyLanguageLoader.reload();
         ModBlocks.register();
         ModItems.register();
         ModRecipeTypes.resister();

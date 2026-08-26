@@ -1,5 +1,6 @@
 package net.chaolux.delightlegacy.common.item;
 
+import net.chaolux.delightlegacy.common.utility.MathUtils;
 import net.chaolux.delightlegacy.legacy.common.item.LegacyItemProperties;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.EntityHorse;
@@ -40,7 +41,10 @@ public class HorseFeedItem extends Item {
             }
             world.playSoundAtEntity(entityHorse,"mob.horse.eat",0.8f,0.8f);
             for(int index=0;index < 5;index++) {
-                world.spawnParticle("heart",entityHorse.posX + (world.rand.nextDouble() - 0.5) * entityHorse.width,entityHorse.posY + 0.5 + world.rand.nextDouble() * entityHorse.height,entityHorse.posZ + (world.rand.nextDouble() - 0.5) * entityHorse.width,0.0,0.05,0.0);
+                double d0 = MathUtils.RAND.nextGaussian() * 0.02;
+                double d1 = MathUtils.RAND.nextGaussian() * 0.02;
+                double d2 = MathUtils.RAND.nextGaussian() * 0.02;
+                world.spawnParticle("heart",entityHorse.posX + (world.rand.nextDouble() - 0.5) * entityHorse.width,entityHorse.posY + 0.5 + world.rand.nextDouble() * entityHorse.height,entityHorse.posZ + (world.rand.nextDouble() - 0.5) * entityHorse.width,d0,d1,d2);
             }
             if(!entityPlayer.capabilities.isCreativeMode) itemStack.stackSize--;
         }
